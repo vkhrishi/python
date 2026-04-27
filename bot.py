@@ -71,7 +71,7 @@ LOTS_TO_TRADE    = 1
 ITM_OFFSET       = 100      # Buy 100 pts ITM for delta ~0.6
 
 # ── PAPER TRADE MODE ──
-PAPER_TRADE      = True     # Set False ONLY after 40+ paper trades
+PAPER_TRADE      = False     # Set False ONLY after 40+ paper trades
 
 # ── BAG (Breakaway Gap) ──
 MIN_GAP_POINTS       = 15   # Reduced from 30 — catches more valid gaps

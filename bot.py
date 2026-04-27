@@ -1,22 +1,23 @@
+# -*- coding: utf-8 -*-
 # ============================================================
-#  NIFTY SNIPER v2.0 — BAG + ORB + FVG + Bot-Managed Exits
+#  NIFTY SNIPER v2.0 â€” BAG + ORB + FVG + Bot-Managed Exits
 #  VPS (Hetzner + Groww API)
 #
 #  STRATEGY:
-#    1. BAG  — Gap at open sets directional bias
-#    2. ORB  — 15-min range breakout confirms direction
-#    3. FVG  — Fair Value Gap gives sniper entry with tight SL
+#    1. BAG  â€” Gap at open sets directional bias
+#    2. ORB  â€” 15-min range breakout confirms direction
+#    3. FVG  â€” Fair Value Gap gives sniper entry with tight SL
 #
-#  EXIT (NO OCO — bot monitors every cron run):
-#    • Take Profit: +Rs.300
-#    • Stop Loss:   -Rs.500
-#    • EOD Squareoff: 15:10
+#  EXIT (NO OCO â€” bot monitors every cron run):
+#    â€¢ Take Profit: +Rs.300
+#    â€¢ Stop Loss:   -Rs.500
+#    â€¢ EOD Squareoff: 15:10
 #
 #  RULES:
-#    • 1 trade/day MAX
-#    • No trades after 11:30 AM
-#    • ITM options for better delta
-#    • Cached login + smart API budgeting
+#    â€¢ 1 trade/day MAX
+#    â€¢ No trades after 11:30 AM
+#    â€¢ ITM options for better delta
+#    â€¢ Cached login + smart API budgeting
 # ============================================================
 
 from growwapi import GrowwAPI
@@ -55,7 +56,7 @@ logging.basicConfig(
 )
 
 # -------------------------------------------------------------
-#  SECTION 1 — CONFIGURATION
+#  SECTION 1 â€” CONFIGURATION
 # -------------------------------------------------------------
 
 GROWW_TOTP_TOKEN  = "eyJraWQiOiJaTUtjVXciLCJhbGciOiJFUzI1NiJ9.eyJleHAiOjI1NjQ0NjQ3NTEsImlhdCI6MTc3NjA2NDc1MSwibmJmIjoxNzc2MDY0NzUxLCJzdWIiOiJ7XCJ0b2tlblJlZklkXCI6XCI4OTFmMzExNi04NGRjLTQxNWMtOWUxYy1iOTc3YzNhMWExZmJcIixcInZlbmRvckludGVncmF0aW9uS2V5XCI6XCJlMzFmZjIzYjA4NmI0MDZjODg3NGIyZjZkODQ5NTMxM1wiLFwidXNlckFjY291bnRJZFwiOlwiNjQ3NTk3YTItNTlmMC00MWQ2LTkyZjgtMGNjYzdkYTBkN2I2XCIsXCJkZXZpY2VJZFwiOlwiYWM4Y2Y5NzctMTY5OC01NDM3LTkxNTItMzg2ZTFiZmM2YzQwXCIsXCJzZXNzaW9uSWRcIjpcIjAzM2E2OWRhLWQ3YzQtNDJkMS04YTJiLWNiMDc0NjQxMGIwZFwiLFwiYWRkaXRpb25hbERhdGFcIjpcIno1NC9NZzltdjE2WXdmb0gvS0EwYkgyblRaQUhZYlRzeVhHdDk1ZzgxR1JSTkczdTlLa2pWZDNoWjU1ZStNZERhWXBOVi9UOUxIRmtQejFFQisybTdRPT1cIixcInJvbGVcIjpcImF1dGgtdG90cFwiLFwic291cmNlSXBBZGRyZXNzXCI6XCIyNDAxOjQ5MDA6OTM5NTpjZTQ1OjdjNWM6NWVlYjoyMTAwOjZiYzUsMTcyLjY5LjEzMS4xODcsMzUuMjQxLjIzLjEyM1wiLFwidHdvRmFFeHBpcnlUc1wiOjI1NjQ0NjQ3NTEzMTgsXCJ2ZW5kb3JOYW1lXCI6XCJncm93d0FwaVwifSIsImlzcyI6ImFwZXgtYXV0aC1wcm9kLWFwcCJ9.Oyi_wQZPgluXSJTYzwyWEJ4Q3nW40o6e9sr7oD6gsfLwgMB0eNmG6TQDM2_yyEXZp2Z9z1tCuqTgJYd6rBJdOA"
@@ -120,7 +121,7 @@ CANDLE_FILE = "/root/scalper/candles.json"
 ORB_FILE    = "/root/scalper/orb.json"
 
 # -------------------------------------------------------------
-#  SECTION 2 — INDICATORS
+#  SECTION 2 â€” INDICATORS
 # -------------------------------------------------------------
 
 def ema(data, period):
@@ -187,7 +188,7 @@ def safe(s, idx=-1):
     except: return None
 
 # -------------------------------------------------------------
-#  SECTION 3 — BAG + ORB + FVG SIGNAL ENGINE
+#  SECTION 3 â€” BAG + ORB + FVG SIGNAL ENGINE
 # -------------------------------------------------------------
 
 def load_orb():
@@ -391,7 +392,7 @@ def compute_signal(candles, orb):
             "direction": direction, "details": details}
 
 # -------------------------------------------------------------
-#  SECTION 4 — RISK MANAGER
+#  SECTION 4 â€” RISK MANAGER
 # -------------------------------------------------------------
 
 class RiskManager:
@@ -470,7 +471,7 @@ class RiskManager:
             return True, f"Spread skipped: {e}"
 
 # -------------------------------------------------------------
-#  SECTION 5 — UTILITIES
+#  SECTION 5 â€” UTILITIES
 # -------------------------------------------------------------
 
 def ist_now():
@@ -519,7 +520,7 @@ def save_state(state):
     with open(STATE_FILE, "w") as f: json.dump(state, f, indent=2)
 
 # -------------------------------------------------------------
-#  SECTION 6 — LOGIN (CACHED)
+#  SECTION 6 â€” LOGIN (CACHED)
 # -------------------------------------------------------------
 
 def login():
@@ -547,7 +548,7 @@ def login():
     return groww
 
 # -------------------------------------------------------------
-#  SECTION 7 — FETCH CANDLES (3-day warmup)
+#  SECTION 7 â€” FETCH CANDLES (3-day warmup)
 # -------------------------------------------------------------
 
 def _parse_candles(raw):
@@ -616,7 +617,7 @@ def fetch_candles(groww):
             logging.info(f"Candles: {len(cache['candles'])} (inc={is_incremental})")
             return cache["candles"]
         elif is_incremental and len(existing) >= 30:
-            logging.info(f"No new candles — cache ({len(existing)})")
+            logging.info(f"No new candles â€” cache ({len(existing)})")
             return existing
     except Exception as e:
         logging.warning(f"Candle API failed: {e}")
@@ -624,7 +625,7 @@ def fetch_candles(groww):
     return existing if existing else []
 
 # -------------------------------------------------------------
-#  SECTION 8 — SYMBOL RESOLUTION
+#  SECTION 8 â€” SYMBOL RESOLUTION
 # -------------------------------------------------------------
 
 def get_option_ltp(groww, symbol):
@@ -759,7 +760,7 @@ def get_valid_option_symbol(groww, strike, opt_type):
     return None, None
 
 # -------------------------------------------------------------
-#  SECTION 9 — ENTRY + MONITOR EXIT (NO OCO)
+#  SECTION 9 â€” ENTRY + MONITOR EXIT (NO OCO)
 # -------------------------------------------------------------
 
 def place_entry_order(groww, symbol, qty, txn):
@@ -875,7 +876,7 @@ def cancel_and_squareoff(groww, state):
     logging.info(f"DAILY SUMMARY | Trades:{len(trades)} | P&L:Rs.{state.get('daily_pnl_rupees',0):+.0f}")
 
 # -------------------------------------------------------------
-#  SECTION 10 — MAIN
+#  SECTION 10 â€” MAIN
 # -------------------------------------------------------------
 
 def main():
@@ -929,15 +930,15 @@ def main():
     signal = result["signal"]; confidence = result.get("confidence")
     d = result.get("details", {})
 
-    logging.info(f"  Signal:{signal} | Conf:{confidence} | {d.get('trigger','—')}")
-    logging.info(f"  Close:{d.get('close','—')} | ORB:{d.get('orb_high','—')}/{d.get('orb_low','—')} | Gap:{d.get('gap_direction','—')}({d.get('gap_size','—')})")
-    logging.info(f"  ADX:{d.get('adx','—')} RSI:{d.get('rsi','—')} VWAP:{d.get('vwap','—')} | Bull:{d.get('bull_score','—')} Bear:{d.get('bear_score','—')}")
-    if d.get("fvg_top"): logging.info(f"  FVG: {d['fvg_bot']}–{d['fvg_top']} ({d.get('fvg_size','')} pts)")
+    logging.info(f"  Signal:{signal} | Conf:{confidence} | {d.get('trigger','â€”')}")
+    logging.info(f"  Close:{d.get('close','â€”')} | ORB:{d.get('orb_high','â€”')}/{d.get('orb_low','â€”')} | Gap:{d.get('gap_direction','â€”')}({d.get('gap_size','â€”')})")
+    logging.info(f"  ADX:{d.get('adx','â€”')} RSI:{d.get('rsi','â€”')} VWAP:{d.get('vwap','â€”')} | Bull:{d.get('bull_score','â€”')} Bear:{d.get('bear_score','â€”')}")
+    if d.get("fvg_top"): logging.info(f"  FVG: {d['fvg_bot']}â€“{d['fvg_top']} ({d.get('fvg_size','')} pts)")
     if d.get("reason"):  logging.info(f"  ? {d['reason']}")
 
     if signal == "NO_TRADE": return
     if confidence not in ("HIGH", "MED"):
-        logging.info(f"  ? {confidence} — skip"); return
+        logging.info(f"  ? {confidence} â€” skip"); return
 
     risk = RiskManager(state)
     ok, reason = risk.check_can_trade(groww)
@@ -1009,7 +1010,7 @@ def main():
     tag = "?? PAPER" if PAPER_TRADE else "? LIVE"
     logging.info(f"{tag} TRADE | {signal} {confidence} | {symbol}")
     logging.info(f"   Entry:Rs.{entry_premium} | TP:Rs.{tp_price} (+Rs.{TAKE_PROFIT_RUPEES}) | SL:Rs.{sl_price} (-Rs.{STOP_LOSS_RUPEES})")
-    logging.info(f"   Bot monitors every cron run — no OCO needed")
+    logging.info(f"   Bot monitors every cron run â€” no OCO needed")
 
 if __name__ == "__main__":
     main()

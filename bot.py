@@ -510,7 +510,7 @@ def compute_signal(candles, orb, sr):
     # == FILTER 3: EMA TREND ALIGNMENT ==
     if ef is not None and es is not None:
         if direction == "BULL" and ef < es:
-            # Not a hard reject — just reduces confidence
+            # Not a hard reject just reduces confidence
             details["ema_aligned"] = False
         elif direction == "BEAR" and ef > es:
             details["ema_aligned"] = False

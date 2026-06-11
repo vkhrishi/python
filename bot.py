@@ -73,7 +73,7 @@ LOTS_TO_TRADE    = 1
 ITM_OFFSET       = 100
 
 # -- PAPER TRADE MODE --
-PAPER_TRADE      = True
+PAPER_TRADE      = False
 
 # -- BAG (Breakaway Gap) --
 MIN_GAP_POINTS       = 15

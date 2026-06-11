@@ -73,7 +73,7 @@ LOTS_TO_TRADE    = 1
 ITM_OFFSET       = 100
 
 # -- PAPER TRADE MODE --
-PAPER_TRADE      = False
+PAPER_TRADE      = True
 
 # -- BAG (Breakaway Gap) --
 MIN_GAP_POINTS       = 15
@@ -121,10 +121,10 @@ MAX_CAPITAL_EXPOSURE_PCT  = 100
 SL_BUFFER_POINTS          = 5
 
 # -- Time --
-NO_TRADE_AFTER_HOUR  = 12
-NO_TRADE_AFTER_MIN   = 30
+NO_TRADE_AFTER_HOUR  = 15
+NO_TRADE_AFTER_MIN   = 10
 SQUAREOFF_HOUR       = 15
-SQUAREOFF_MIN        = 10
+SQUAREOFF_MIN        = 20
 
 # -- Market regime --
 MIN_ADX_FOR_TRADE    = 15

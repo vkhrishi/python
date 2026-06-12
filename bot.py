@@ -922,8 +922,8 @@ def calc_sl_tp(entry_price, qty, fib_sl_distance=None):
     """
     if fib_sl_distance and fib_sl_distance > 0:
         # Use fib-derived SL on the OPTION premium
-        # Scale: if Nifty SL = X pts, option SL ˜ X * delta
-        # For ATM options, delta ˜ 0.5, so option moves ~50% of index
+        # Scale: if Nifty SL = X pts, option SL X * delta
+        # For ATM options, delta Â˜ 0.5, so option moves ~50% of index
         sl_drop = fib_sl_distance * 0.50  # rough delta scaling
         # But also cap by percentage
         pct_sl = entry_price * get_sl_percent(entry_price) / 100

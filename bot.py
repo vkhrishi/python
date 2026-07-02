@@ -155,7 +155,7 @@ SQUAREOFF_HOUR       = 15
 SQUAREOFF_MIN        = 10
 
 # -- Market regime filters --
-MIN_ADX_FOR_TRADE    = 14      # Lowered from 18 - allow more trending days
+MIN_ADX_FOR_TRADE    = 7      # Lowered from 18 - allow more trending days
 ADX_LEN              = 14
 ATR_LEN              = 14
 RSI_LEN              = 14
